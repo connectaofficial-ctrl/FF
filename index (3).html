@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お問い合わせ | Contact</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ─── TOKENS ─────────────────────────────────────────────────── */
+:root {
+  --bg:        #f8f7f4;
+  --surface:   #ffffff;
+  --border:    rgba(0,0,0,.09);
+  --border-focus: rgba(0,0,0,.3);
+  --text:      #0d0d0d;
+  --text-2:    #555;
+  --text-3:    #999;
+  --accent:    #1a1a1a;
+  --accent-soft: rgba(26,26,26,.06);
+  --success:   #16a34a;
+  --error:     #dc2626;
+  --radius:    14px;
+  --radius-sm: 8px;
+  --transition: 200ms cubic-bezier(.4,0,.2,1);
+}
+
+/* ─── RESET ──────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{
+  font-family:'DM Sans','Noto Sans JP',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  font-size:15px;
+  line-height:1.6;
+}
+img,svg{display:block}
+
+/* ─── LAYOUT ──────────────────────────────────────────────────── */
+.page{
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+  padding:0 20px;
+}
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:20px 0;
+  max-width:540px;
+  margin:0 auto;
+  width:100%;
+}
+.logo{
+  font-family:'DM Mono',monospace;
+  font-size:13px;
+  font-weight:500;
+  letter-spacing:.06em;
+  color:var(--text);
+  text-decoration:none;
+  opacity:.7;
+}
+
+/* ─── LANG SWITCHER ───────────────────────────────────────────── */
+.lang-switcher{
+  display:flex;
+  align-items:center;
+  gap:2px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:100px;
+  padding:3px;
+}
+.lang-btn{
+  font-family:'DM Sans','Noto Sans JP',sans-serif;
+  font-size:11px;
+  font-weight:500;
+  padding:4px 9px;
+  border:none;
+  background:transparent;
+  color:var(--text-3);
+  border-radius:100px;
+  cursor:pointer;
+  transition:all var(--transition);
+  white-space:nowrap;
+  letter-spacing:.02em;
+}
+.lang-btn:hover{color:var(--text)}
+.lang-btn.active{
+  background:var(--text);
+  color:#fff;
+}
+
+/* ─── MAIN ────────────────────────────────────────────────────── */
+.main{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding-bottom:60px;
+}
+
+/* ─── HERO ────────────────────────────────────────────────────── */
+.hero{
+  text-align:center;
+  padding:40px 0 44px;
+  max-width:420px;
+}
+.hero-tag{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--text-3);
+  margin-bottom:18px;
+}
+.hero-tag::before{
+  content:'';
+  width:16px;height:1px;
+  background:var(--text-3);
+}
+.hero h1{
+  font-size:clamp(26px,5vw,34px);
+  font-weight:300;
+  letter-spacing:-.02em;
+  line-height:1.2;
+  color:var(--text);
+  margin-bottom:14px;
+}
+.hero h1 strong{font-weight:500}
+.hero p{
+  font-size:14px;
+  color:var(--text-2);
+  line-height:1.7;
+}
+
+/* ─── CARD ────────────────────────────────────────────────────── */
+.card{
+  width:100%;
+  max-width:520px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:36px 36px 32px;
+  box-shadow:0 1px 3px rgba(0,0,0,.04),0 8px 32px rgba(0,0,0,.04);
+  animation:cardIn .5s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes cardIn{
+  from{opacity:0;transform:translateY(16px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@media(max-width:560px){
+  .card{padding:24px 20px 20px;border-radius:16px}
+}
+
+/* ─── TYPE SELECTOR ───────────────────────────────────────────── */
+.type-grid{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-bottom:28px;
+}
+.type-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:8px 16px;
+  border:1.5px solid var(--border);
+  border-radius:100px;
+  background:transparent;
+  cursor:pointer;
+  transition:all var(--transition);
+  font-family:inherit;
+  white-space:nowrap;
+}
+.type-btn:hover{
+  border-color:rgba(0,0,0,.25);
+  background:var(--accent-soft);
+}
+.type-btn.selected{
+  border-color:var(--accent);
+  background:var(--accent);
+  color:#fff;
+}
+.type-label{
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:.02em;
+  line-height:1;
+}
+
+/* ─── FORM FIELDS ─────────────────────────────────────────────── */
+.form-group{
+  margin-bottom:18px;
+  animation:fadeUp .3s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.form-label{
+  display:block;
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  color:var(--text-2);
+  margin-bottom:8px;
+}
+.form-label span{color:var(--error);margin-left:2px}
+
+.field-wrap{position:relative}
+.form-input,
+.form-textarea,
+.form-select{
+  width:100%;
+  font-family:'DM Sans','Noto Sans JP',sans-serif;
+  font-size:14px;
+  color:var(--text);
+  background:var(--bg);
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:12px 14px;
+  outline:none;
+  transition:border-color var(--transition),box-shadow var(--transition);
+  -webkit-appearance:none;
+}
+.form-input::placeholder,
+.form-textarea::placeholder{color:var(--text-3)}
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px var(--accent-soft);
+  background:#fff;
+}
+.form-input.error,
+.form-textarea.error{
+  border-color:var(--error);
+  box-shadow:0 0 0 3px rgba(220,38,38,.07);
+}
+.form-textarea{resize:vertical;min-height:110px;line-height:1.6}
+.form-select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 12px center;
+  padding-right:36px;
+  cursor:pointer;
+}
+
+.field-hint{
+  font-size:11px;
+  color:var(--text-3);
+  margin-top:5px;
+}
+.field-error{
+  font-size:11px;
+  color:var(--error);
+  margin-top:5px;
+  display:none;
+}
+.field-error.show{display:block}
+
+/* ─── USER TYPE TOGGLE ────────────────────────────────────────── */
+.toggle-row{
+  display:flex;
+  gap:8px;
+}
+.toggle-btn{
+  flex:1;
+  padding:10px;
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-sm);
+  background:transparent;
+  font-family:inherit;
+  font-size:13px;
+  font-weight:500;
+  cursor:pointer;
+  transition:all var(--transition);
+  color:var(--text-2);
+}
+.toggle-btn:hover{border-color:rgba(0,0,0,.2)}
+.toggle-btn.selected{
+  border-color:var(--accent);
+  background:var(--accent);
+  color:#fff;
+}
+
+/* ─── PRIVACY ─────────────────────────────────────────────────── */
+.privacy-row{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  padding:14px;
+  background:var(--bg);
+  border-radius:var(--radius-sm);
+  margin-bottom:20px;
+  cursor:pointer;
+}
+.privacy-row input[type=checkbox]{
+  width:16px;height:16px;
+  margin-top:2px;
+  flex-shrink:0;
+  accent-color:var(--accent);
+  cursor:pointer;
+}
+.privacy-text{
+  font-size:12px;
+  color:var(--text-2);
+  line-height:1.6;
+}
+.privacy-text a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
+
+/* ─── SUBMIT ──────────────────────────────────────────────────── */
+.btn-submit{
+  width:100%;
+  padding:14px;
+  background:var(--accent);
+  color:#fff;
+  border:none;
+  border-radius:var(--radius-sm);
+  font-family:inherit;
+  font-size:14px;
+  font-weight:500;
+  letter-spacing:.01em;
+  cursor:pointer;
+  transition:all var(--transition);
+  position:relative;
+  overflow:hidden;
+}
+.btn-submit:hover:not(:disabled){
+  background:#333;
+  transform:translateY(-1px);
+  box-shadow:0 4px 16px rgba(0,0,0,.15);
+}
+.btn-submit:active:not(:disabled){transform:translateY(0)}
+.btn-submit:disabled{opacity:.5;cursor:not-allowed}
+.btn-submit .btn-text{transition:opacity var(--transition)}
+.btn-submit .btn-loader{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:opacity var(--transition);
+}
+.btn-submit.loading .btn-text{opacity:0}
+.btn-submit.loading .btn-loader{opacity:1}
+.spinner{
+  width:18px;height:18px;
+  border:2px solid rgba(255,255,255,.3);
+  border-top-color:#fff;
+  border-radius:50%;
+  animation:spin .6s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ─── DIVIDER ─────────────────────────────────────────────────── */
+.divider{
+  height:1px;
+  background:var(--border);
+  margin:24px 0;
+}
+
+/* ─── SUCCESS STATE ───────────────────────────────────────────── */
+.success-screen{
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  padding:20px 0;
+  animation:fadeUp .5s cubic-bezier(.16,1,.3,1) both;
+}
+.success-screen.show{display:flex}
+.success-icon{
+  width:52px;height:52px;
+  background:var(--success);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:20px;
+  animation:iconPop .5s cubic-bezier(.34,1.56,.64,1) .1s both;
+}
+@keyframes iconPop{
+  from{opacity:0;transform:scale(.5)}
+  to{opacity:1;transform:scale(1)}
+}
+.success-icon svg{color:#fff}
+.success-title{
+  font-size:20px;
+  font-weight:500;
+  margin-bottom:8px;
+  letter-spacing:-.01em;
+}
+.success-msg{
+  font-size:13px;
+  color:var(--text-2);
+  line-height:1.7;
+  max-width:320px;
+}
+.success-id{
+  margin-top:20px;
+  padding:10px 18px;
+  background:var(--bg);
+  border-radius:100px;
+  font-family:'DM Mono',monospace;
+  font-size:12px;
+  color:var(--text-2);
+  letter-spacing:.06em;
+}
+.btn-back{
+  margin-top:20px;
+  padding:10px 20px;
+  border:1.5px solid var(--border);
+  border-radius:100px;
+  background:transparent;
+  font-family:inherit;
+  font-size:13px;
+  font-weight:500;
+  cursor:pointer;
+  color:var(--text-2);
+  transition:all var(--transition);
+}
+.btn-back:hover{border-color:rgba(0,0,0,.2);color:var(--text)}
+
+/* ─── ERROR BANNER ────────────────────────────────────────────── */
+.error-banner{
+  display:none;
+  align-items:center;
+  gap:10px;
+  padding:12px 14px;
+  background:rgba(220,38,38,.06);
+  border:1px solid rgba(220,38,38,.2);
+  border-radius:var(--radius-sm);
+  font-size:13px;
+  color:var(--error);
+  margin-bottom:18px;
+}
+.error-banner.show{display:flex}
+
+/* ─── HONEYPOT ────────────────────────────────────────────────── */
+.hp-field{position:absolute;left:-9999px;opacity:0;pointer-events:none;height:0}
+
+/* ─── FOOTER ──────────────────────────────────────────────────── */
+.footer{
+  text-align:center;
+  padding:20px 0 32px;
+  font-size:11px;
+  color:var(--text-3);
+  letter-spacing:.03em;
+}
+
+/* ─── CONDITIONAL ─────────────────────────────────────────────── */
+.conditional{
+  overflow:hidden;
+  max-height:0;
+  opacity:0;
+  transition:max-height .35s cubic-bezier(.16,1,.3,1),
+             opacity .25s ease,
+             margin .35s cubic-bezier(.16,1,.3,1);
+  margin-bottom:0;
+}
+.conditional.open{
+  max-height:200px;
+  opacity:1;
+  margin-bottom:18px;
+}
+
+/* ─── PROGRESS ────────────────────────────────────────────────── */
+.form-progress{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  margin-bottom:24px;
+}
+.progress-bar{
+  flex:1;height:2px;
+  background:var(--border);
+  border-radius:2px;
+  overflow:hidden;
+}
+.progress-fill{
+  height:100%;
+  background:var(--accent);
+  border-radius:2px;
+  transition:width .4s cubic-bezier(.16,1,.3,1);
+  width:0%;
+}
+.progress-label{
+  font-size:11px;
+  color:var(--text-3);
+  font-family:'DM Mono',monospace;
+  white-space:nowrap;
+}
+
+/* ─── CHAR COUNT ──────────────────────────────────────────────── */
+.char-count{
+  display:flex;
+  justify-content:flex-end;
+  font-size:11px;
+  color:var(--text-3);
+  margin-top:4px;
+  font-family:'DM Mono',monospace;
+}
+
+/* ─── SECTION TITLE ───────────────────────────────────────────── */
+.section-title{
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--text-3);
+  margin-bottom:14px;
+}
+
+
+</style>
+</head>
+<body>
+
+<div class="page">
+  <!-- HEADER -->
+  <header class="header">
+    <a href="#" class="logo">CONTACT</a>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button class="lang-btn active" data-lang="ja">JP</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="zh">中文</button>
+      <button class="lang-btn" data-lang="ko">한국어</button>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="main">
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-tag" data-i18n="tag">お問い合わせ</div>
+      <h1 data-i18n="title">何でも<strong>お気軽に</strong><br>ご連絡ください</h1>
+      <p data-i18n="subtitle">通常2営業日以内にご返信いたします。</p>
+    </div>
+
+    <!-- CARD -->
+    <div class="card">
+      <!-- FORM -->
+      <form id="contactForm" novalidate>
+
+        <!-- Honeypot -->
+        <div class="hp-field" aria-hidden="true">
+          <input type="text" name="_honey" tabindex="-1" autocomplete="off">
+        </div>
+
+        <!-- ERROR BANNER -->
+        <div class="error-banner" id="errorBanner" role="alert">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span id="errorBannerMsg"></span>
+        </div>
+
+        <!-- PROGRESS -->
+        <div class="form-progress">
+          <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+          <div class="progress-label" id="progressLabel">0%</div>
+        </div>
+
+        <!-- STEP 1: INQUIRY TYPE -->
+        <div class="section-title" data-i18n="step1">お問い合わせの種類</div>
+        <div class="type-grid" id="typeGrid" role="radiogroup">
+          <button type="button" class="type-btn" data-value="event">
+            <span class="type-label" data-i18n="type_event">イベント</span>
+          </button>
+          <button type="button" class="type-btn" data-value="community">
+            <span class="type-label" data-i18n="type_community">コミュニティ</span>
+          </button>
+          <button type="button" class="type-btn" data-value="shopcard">
+            <span class="type-label" data-i18n="type_shopcard">ショップカード</span>
+          </button>
+          <button type="button" class="type-btn" data-value="general">
+            <span class="type-label" data-i18n="type_general">一般</span>
+          </button>
+          <button type="button" class="type-btn" data-value="business">
+            <span class="type-label" data-i18n="type_business">企業コラボ</span>
+          </button>
+          <button type="button" class="type-btn" data-value="other">
+            <span class="type-label" data-i18n="type_other">その他</span>
+          </button>
+        </div>
+        <div id="typeError" class="field-error" data-i18n="err_type">種類を選択してください</div>
+
+        <div class="divider"></div>
+
+        <!-- STEP 2: CONTACT INFO -->
+        <div class="section-title" data-i18n="step2">連絡先</div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label class="form-label" for="email"><span data-i18n="label_email">メールアドレス</span><span>*</span></label>
+          <div class="field-wrap">
+            <input class="form-input" type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+          </div>
+          <div class="field-error" id="emailError" data-i18n="err_email">有効なメールアドレスを入力してください</div>
+        </div>
+
+        <!-- Name (optional) -->
+        <div class="form-group">
+          <label class="form-label" for="name" data-i18n="label_name">お名前（任意）</label>
+          <input class="form-input" type="text" id="name" name="name" autocomplete="name">
+        </div>
+
+        <!-- User Type -->
+        <div class="form-group">
+          <label class="form-label" data-i18n="label_type">個人 / 企業<span>*</span></label>
+          <div class="toggle-row" id="userTypeRow" role="radiogroup">
+            <button type="button" class="toggle-btn" data-value="individual" data-i18n="individual">個人</button>
+            <button type="button" class="toggle-btn" data-value="company" data-i18n="company">企業</button>
+          </div>
+          <div class="field-error" id="userTypeError" data-i18n="err_type2">選択してください</div>
+        </div>
+
+        <!-- Company fields (conditional) -->
+        <div class="conditional" id="companyFields">
+          <div class="form-group" style="margin-bottom:18px">
+            <label class="form-label" for="companyName" data-i18n="label_company">会社名</label>
+            <input class="form-input" type="text" id="companyName" name="companyName" autocomplete="organization">
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <label class="form-label" for="website" data-i18n="label_website">ウェブサイト</label>
+            <input class="form-input" type="url" id="website" name="website" placeholder="https://" autocomplete="url">
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- STEP 3: MESSAGE -->
+        <div class="section-title" data-i18n="step3">メッセージ</div>
+
+        <div class="form-group">
+          <label class="form-label" for="message"><span data-i18n="label_message">お問い合わせ内容</span><span>*</span></label>
+          <textarea class="form-textarea" id="message" name="message" maxlength="2000" rows="5" required></textarea>
+          <div class="char-count"><span id="charCount">0</span> / 2000</div>
+          <div class="field-error" id="messageError" data-i18n="err_message">メッセージを入力してください</div>
+        </div>
+
+        <!-- Privacy -->
+        <label class="privacy-row" for="privacy">
+          <input type="checkbox" id="privacy" name="privacy" required>
+          <span class="privacy-text" data-i18n="privacy_text">
+            <a href="#" onclick="return false">プライバシーポリシー</a>に同意の上、お問い合わせ内容を送信します。
+          </span>
+        </label>
+        <div class="field-error" id="privacyError" data-i18n="err_privacy">同意が必要です</div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn-submit" id="submitBtn">
+          <span class="btn-text" data-i18n="btn_send">送信する</span>
+          <span class="btn-loader"><div class="spinner"></div></span>
+        </button>
+
+      </form>
+
+      <!-- SUCCESS STATE -->
+      <div class="success-screen" id="successScreen">
+        <div class="success-icon">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <div class="success-title" data-i18n="success_title">送信完了しました</div>
+        <div class="success-msg" data-i18n="success_msg">お問い合わせありがとうございます。<br>2営業日以内にご連絡いたします。</div>
+        <div class="success-id" id="successId"></div>
+        <button class="btn-back" id="btnBack" data-i18n="btn_back">別の問い合わせをする</button>
+      </div>
+
+    </div><!-- /card -->
+  </main>
+
+  <footer class="footer">
+    <span data-i18n="footer">© 2025 Community Platform. All rights reserved.</span>
+  </footer>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   I18N DICTIONARY
+═══════════════════════════════════════════════════════════════ */
+const i18n = {
+  ja: {
+    tag:"お問い合わせ",
+    title:"何でも<strong>お気軽に</strong><br>ご連絡ください",
+    subtitle:"通常2営業日以内にご返信いたします。",
+    step1:"お問い合わせの種類",
+    step2:"連絡先",
+    step3:"メッセージ",
+    type_event:"イベント",
+    type_community:"コミュニティ",
+    type_shopcard:"ショップカード",
+    type_general:"一般",
+    type_business:"企業コラボ",
+    type_other:"その他",
+    label_email:"メールアドレス",
+    label_name:"お名前（任意）",
+    label_type:"個人 / 企業",
+    label_company:"会社名",
+    label_website:"ウェブサイト",
+    label_message:"お問い合わせ内容",
+    individual:"個人",
+    company:"企業",
+    privacy_text:'<a href="#" onclick="return false">プライバシーポリシー</a>に同意の上、お問い合わせ内容を送信します。',
+    btn_send:"送信する",
+    err_type:"種類を選択してください",
+    err_email:"有効なメールアドレスを入力してください",
+    err_type2:"選択してください",
+    err_message:"メッセージを入力してください（10文字以上）",
+    err_privacy:"プライバシーポリシーへの同意が必要です",
+    success_title:"送信完了しました",
+    success_msg:"お問い合わせありがとうございます。<br>2営業日以内にご連絡いたします。",
+    btn_back:"別の問い合わせをする",
+    footer:"© 2025 Community Platform. All rights reserved.",
+    err_generic:"送信中にエラーが発生しました。もう一度お試しください。",
+  },
+  en: {
+    tag:"Get in Touch",
+    title:"We'd love to<br><strong>hear from you</strong>",
+    subtitle:"We'll get back to you within 2 business days.",
+    step1:"Inquiry Type",
+    step2:"Contact Info",
+    step3:"Message",
+    type_event:"Event",
+    type_community:"Community",
+    type_shopcard:"Shop Card",
+    type_general:"General",
+    type_business:"Collab",
+    type_other:"Other",
+    label_email:"Email Address",
+    label_name:"Name (optional)",
+    label_type:"Individual / Company",
+    label_company:"Company Name",
+    label_website:"Website",
+    label_message:"Your Message",
+    individual:"Individual",
+    company:"Company",
+    privacy_text:'I agree to the <a href="#" onclick="return false">Privacy Policy</a> and consent to submit this form.',
+    btn_send:"Send Message",
+    err_type:"Please select an inquiry type",
+    err_email:"Please enter a valid email address",
+    err_type2:"Please select one",
+    err_message:"Please enter a message (10+ characters)",
+    err_privacy:"Please agree to the Privacy Policy",
+    success_title:"Message Sent!",
+    success_msg:"Thank you for reaching out.<br>We'll reply within 2 business days.",
+    btn_back:"Send another message",
+    footer:"© 2025 Community Platform. All rights reserved.",
+    err_generic:"An error occurred. Please try again.",
+  },
+  zh: {
+    tag:"联系我们",
+    title:"随时<strong>联系我们</strong>",
+    subtitle:"我们将在2个工作日内回复您。",
+    step1:"咨询类型",
+    step2:"联系信息",
+    step3:"留言",
+    type_event:"活动",
+    type_community:"社区",
+    type_shopcard:"购物卡",
+    type_general:"一般咨询",
+    type_business:"商业合作",
+    type_other:"其他",
+    label_email:"电子邮箱",
+    label_name:"姓名（选填）",
+    label_type:"个人 / 企业",
+    label_company:"公司名称",
+    label_website:"网站",
+    label_message:"您的留言",
+    individual:"个人",
+    company:"企业",
+    privacy_text:'我同意<a href="#" onclick="return false">隐私政策</a>并同意提交此表格。',
+    btn_send:"发送消息",
+    err_type:"请选择咨询类型",
+    err_email:"请输入有效的电子邮件地址",
+    err_type2:"请选择一项",
+    err_message:"请输入留言（10个字符以上）",
+    err_privacy:"请同意隐私政策",
+    success_title:"发送成功！",
+    success_msg:"感谢您的留言。<br>我们将在2个工作日内回复。",
+    btn_back:"再次发送",
+    footer:"© 2025 Community Platform. 版权所有。",
+    err_generic:"发送时出错，请重试。",
+  },
+  ko: {
+    tag:"문의하기",
+    title:"언제든지<br><strong>연락해 주세요</strong>",
+    subtitle:"영업일 기준 2일 이내에 답변드리겠습니다.",
+    step1:"문의 유형",
+    step2:"연락처",
+    step3:"메시지",
+    type_event:"이벤트",
+    type_community:"커뮤니티",
+    type_shopcard:"쇼핑 카드",
+    type_general:"일반 문의",
+    type_business:"기업 협업",
+    type_other:"기타",
+    label_email:"이메일 주소",
+    label_name:"이름 (선택)",
+    label_type:"개인 / 기업",
+    label_company:"회사명",
+    label_website:"웹사이트",
+    label_message:"문의 내용",
+    individual:"개인",
+    company:"기업",
+    privacy_text:'<a href="#" onclick="return false">개인정보처리방침</a>에 동의하고 양식을 제출합니다.',
+    btn_send:"보내기",
+    err_type:"문의 유형을 선택해 주세요",
+    err_email:"유효한 이메일 주소를 입력해 주세요",
+    err_type2:"선택해 주세요",
+    err_message:"메시지를 입력해 주세요 (10자 이상)",
+    err_privacy:"개인정보처리방침에 동의해 주세요",
+    success_title:"전송 완료되었습니다",
+    success_msg:"문의해 주셔서 감사합니다.<br>영업일 기준 2일 이내에 답변드리겠습니다.",
+    btn_back:"다시 문의하기",
+    footer:"© 2025 Community Platform. All rights reserved.",
+    err_generic:"전송 중 오류가 발생했습니다. 다시 시도해 주세요.",
+  }
+};
+
+/* ═══════════════════════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════════════════════ */
+let currentLang = 'ja';
+let selectedType = null;
+let selectedUserType = null;
+let isSubmitting = false;
+let lastSubmitTime = 0;
+
+/* ═══════════════════════════════════════════════════════════════
+   I18N APPLY
+═══════════════════════════════════════════════════════════════ */
+function applyLang(lang) {
+  currentLang = lang;
+  const d = i18n[lang];
+  document.documentElement.lang = lang;
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (d[key] !== undefined) {
+      el.innerHTML = d[key];
+    }
+  });
+
+  // lang btns
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === lang);
+  });
+
+  // restore type labels
+  document.querySelectorAll('.type-btn .type-label').forEach(el => {
+    const key = el.dataset.i18n;
+    if (d[key]) el.textContent = d[key];
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PROGRESS
+═══════════════════════════════════════════════════════════════ */
+function updateProgress() {
+  const fields = [
+    selectedType !== null,
+    document.getElementById('email').value.trim() !== '',
+    selectedUserType !== null,
+    document.getElementById('message').value.trim().length >= 10,
+    document.getElementById('privacy').checked,
+  ];
+  const done = fields.filter(Boolean).length;
+  const pct = Math.round((done / fields.length) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = pct + '%';
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TYPE SELECTOR
+═══════════════════════════════════════════════════════════════ */
+document.querySelectorAll('#typeGrid .type-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#typeGrid .type-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    selectedType = btn.dataset.value;
+    hideError('typeError');
+    updateProgress();
+  });
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   USER TYPE TOGGLE
+═══════════════════════════════════════════════════════════════ */
+document.querySelectorAll('#userTypeRow .toggle-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#userTypeRow .toggle-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    selectedUserType = btn.dataset.value;
+    hideError('userTypeError');
+    updateProgress();
+
+    // Show/hide company fields
+    const compFields = document.getElementById('companyFields');
+    if (selectedUserType === 'company') {
+      compFields.classList.add('open');
+    } else {
+      compFields.classList.remove('open');
+    }
+  });
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   CHAR COUNT
+═══════════════════════════════════════════════════════════════ */
+document.getElementById('message').addEventListener('input', function() {
+  document.getElementById('charCount').textContent = this.value.length;
+  updateProgress();
+  if (this.value.trim().length >= 10) {
+    this.classList.remove('error');
+    hideError('messageError');
+  }
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   EMAIL VALIDATION
+═══════════════════════════════════════════════════════════════ */
+document.getElementById('email').addEventListener('blur', function() {
+  if (this.value && !isValidEmail(this.value)) {
+    showError('emailError');
+    this.classList.add('error');
+  } else {
+    hideError('emailError');
+    this.classList.remove('error');
+  }
+  updateProgress();
+});
+document.getElementById('email').addEventListener('input', function() {
+  if (isValidEmail(this.value)) {
+    hideError('emailError');
+    this.classList.remove('error');
+  }
+  updateProgress();
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   PRIVACY
+═══════════════════════════════════════════════════════════════ */
+document.getElementById('privacy').addEventListener('change', function() {
+  if (this.checked) hideError('privacyError');
+  updateProgress();
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   HELPERS
+═══════════════════════════════════════════════════════════════ */
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.toLowerCase());
+}
+function sanitize(str) {
+  return String(str).replace(/[<>"'`]/g, c => ({'<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','`':'&#96;'}[c]));
+}
+function showError(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.add('show');
+}
+function hideError(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.remove('show');
+}
+function generateId() {
+  const ts = Date.now().toString(36).toUpperCase();
+  const rand = Math.random().toString(36).slice(2,6).toUpperCase();
+  return `INQ-${ts}-${rand}`;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FORM VALIDATION
+═══════════════════════════════════════════════════════════════ */
+function validateForm() {
+  const d = i18n[currentLang];
+  let valid = true;
+
+  if (!selectedType) { showError('typeError'); valid = false; }
+  if (!isValidEmail(document.getElementById('email').value)) {
+    showError('emailError');
+    document.getElementById('email').classList.add('error');
+    valid = false;
+  }
+  if (!selectedUserType) { showError('userTypeError'); valid = false; }
+  if (document.getElementById('message').value.trim().length < 10) {
+    showError('messageError');
+    document.getElementById('message').classList.add('error');
+    valid = false;
+  }
+  if (!document.getElementById('privacy').checked) {
+    showError('privacyError');
+    valid = false;
+  }
+  return valid;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FORM SUBMIT
+═══════════════════════════════════════════════════════════════ */
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  // Honeypot check
+  if (document.querySelector('input[name="_honey"]').value) return;
+
+  // Rate limit (10 seconds)
+  const now = Date.now();
+  if (now - lastSubmitTime < 10000) return;
+
+  if (isSubmitting) return;
+  if (!validateForm()) return;
+
+  // Build payload
+  const payload = {
+    inquiryType: selectedType,
+    email: sanitize(document.getElementById('email').value.trim()),
+    name: sanitize(document.getElementById('name').value.trim()),
+    userType: selectedUserType,
+    companyName: sanitize(document.getElementById('companyName').value.trim()),
+    website: sanitize(document.getElementById('website').value.trim()),
+    message: sanitize(document.getElementById('message').value.trim()),
+    lang: currentLang,
+    inquiryId: generateId(),
+    timestamp: new Date().toISOString(),
+  };
+
+  // Submit
+  isSubmitting = true;
+  lastSubmitTime = now;
+  const btn = document.getElementById('submitBtn');
+  btn.classList.add('loading');
+  btn.disabled = true;
+  document.getElementById('errorBanner').classList.remove('show');
+
+  try {
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbxApwccYEPblBPtVHA4B2kw6xPrlxA07R31uHAt2iEb8pda26G83wuIK7ByEhYBAidxqQ/exec';
+
+    // 隠しiframe経由でPOST送信（CORSを完全回避）
+    const iframeName = 'hidden_iframe_' + Date.now();
+    const iframe = document.createElement('iframe');
+    iframe.name = iframeName;
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = GAS_URL;
+    form.target = iframeName;
+    form.style.display = 'none';
+
+    Object.keys(payload).forEach(k => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = k;
+      input.value = payload[k];
+      form.appendChild(input);
+    });
+
+    document.body.appendChild(form);
+
+    // 送信完了を待つ
+    await new Promise((resolve) => {
+      iframe.onload = resolve;
+      setTimeout(resolve, 3000); // 3秒でタイムアウト
+      form.submit();
+    });
+
+    // クリーンアップ
+    document.body.removeChild(form);
+    document.body.removeChild(iframe);
+
+    showSuccess(payload.inquiryId);
+
+  } catch (err) {
+    const d = i18n[currentLang];
+    document.getElementById('errorBannerMsg').textContent = d.err_generic;
+    document.getElementById('errorBanner').classList.add('show');
+  } finally {
+    isSubmitting = false;
+    btn.classList.remove('loading');
+    btn.disabled = false;
+  }
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   SUCCESS
+═══════════════════════════════════════════════════════════════ */
+function showSuccess(id) {
+  document.getElementById('contactForm').style.display = 'none';
+  const screen = document.getElementById('successScreen');
+  screen.classList.add('show');
+  document.getElementById('successId').textContent = id;
+}
+
+document.getElementById('btnBack').addEventListener('click', () => {
+  document.getElementById('contactForm').reset();
+  document.getElementById('contactForm').style.display = 'block';
+  document.getElementById('successScreen').classList.remove('show');
+  selectedType = null;
+  selectedUserType = null;
+  document.querySelectorAll('.type-btn, .toggle-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('companyFields').classList.remove('open');
+  document.getElementById('progressFill').style.width = '0%';
+  document.getElementById('progressLabel').textContent = '0%';
+  document.getElementById('charCount').textContent = '0';
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   LANG SWITCHER
+═══════════════════════════════════════════════════════════════ */
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════════════════════ */
+applyLang('ja');
+updateProgress();
+</script>
+</body>
+</html>
